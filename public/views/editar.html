@@ -1,0 +1,27 @@
+<form>
+    <h3>Editar la tarea</h3>
+    <div class="has-feedback">
+        <input type="text" placeholder="Tarea a realizar" ng-model="tarea.nombre" value="{{tarea.nombre}}" class="form-control">
+        <span class="glyphicon glyphicon-tasks form-control-feedback"></span>
+    </div>
+    <div>
+        <span class="glyphicon glyphicon-time"></span>&nbsp;<span class="lead prioridad">Elige la prioridad</span>
+        <label for="baja" class="radio-inline">
+            <input type="radio" ng-model="tarea.prioridad" value="baja">Baja
+        </label>
+        <label for="normal" class="radio-inline">
+            <input type="radio" ng-model="tarea.prioridad" value="normal">Normal
+        </label>
+        <label for="alta" class="radio-inline">
+            <input type="radio" ng-model="tarea.prioridad" value="baja">Alta
+        </label>
+    </div>
+    <div class="text-center editBtn">
+        <button type="submit" class="btn btn-success btn-sm">Actualizar</button>
+        <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
+    </div>
+</form>
+<div>
+    <!--Le digo a que estado quiero ir con la propiedad ui-sref-->
+    <a ui-sref="alta">Regresar</a>
+</div>
