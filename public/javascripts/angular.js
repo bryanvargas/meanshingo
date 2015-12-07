@@ -1,4 +1,4 @@
-angular.module('appTareas', ['ui.router'])
+    angular.module('appTareas', ['ui.router'])
     .config(function($stateProvider, $urlRouterProvider) {
         $stateProvider
             .state('alta', {
@@ -13,8 +13,10 @@ angular.module('appTareas', ['ui.router'])
         $urlRouterProvider.otherwise('alta');
     })
     .controller('ctrlAlta', function ($scope) {
-        $scope.tarea = {}
+        $scope.tarea = {};
         $scope.tareas = [];
+
+        $scope.prioridades = ['Baja', 'Normal', 'Alta'];
 
         $scope.agregar = function () {
             $scope.tareas.push({

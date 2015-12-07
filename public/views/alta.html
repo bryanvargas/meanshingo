@@ -13,20 +13,20 @@
             <input type="radio" ng-model="tarea.prioridad" value="1"> Normal
         </label>
         <label for="alta" class="radio-inline">
-            <input type="radio" ng-model="tarea.prioridad" value="2"> Baja
+            <input type="radio" ng-model="tarea.prioridad" value="2"> Alta
         </label>
     </div>
     <!--ng-click-->
     <button type="submit" class="btn btn-success" ng-click="agregar()">Agregar</button>
 </form>
-{{tareas}}
+<!-- {{tareas}} -->
 <div class="todoList bg-info">
     <h4>Tareas registradas</h4>
-    <div class="item">
+    <div class="item" ng-repeat="tarea in tareas | orderBy: '-prioridad'">
         <span class="glyphicon glyphicon-circle-arrow-up"></span>
         <span class="glyphicon glyphicon-circle-arrow-down"></span>
         <!-- codigo de angular -->
-        {{ tarea.prioridad }}
+        <span class="prioridad">Prioridad: {{ prioridades[tarea.prioridad] }} |</span>
         <span>
             <a href="#">{{ tarea.nombre }}</a>
             <!--propiedad llamada ui-sref= se pasa un estado, es decir a que estado va y se le puede mandar paramentros-->
