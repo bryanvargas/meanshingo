@@ -1,3 +1,4 @@
+app.set("view engine", "jade");
 .DS_Store
 git-info.txt
 logs/*.log
