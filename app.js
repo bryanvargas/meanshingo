@@ -4,6 +4,14 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var mongoose = require('mongoose');
+
+
+//creacion de la base de datos
+mongoose.connect('mongodb://localhost/tareas');
+
+//incluyendo el modelo de datos
+require('./models/Tareas');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');

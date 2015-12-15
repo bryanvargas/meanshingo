@@ -15,14 +15,14 @@ angular.module('appTareas', ['ui.router'])
         $urlRouterProvider.otherwise('alta');
     })
 
-    .factory('comun', function () {
+    .factory('comun', function ($http) {
         var comun = {}
 
         comun.tareas =
         [
-            {nombre: 'Comprar comida', prioridad: '1'},
+           /* {nombre: 'Comprar comida', prioridad: '1'},
             {nombre: 'Pasear al perro', prioridad: '2'},
-            {nombre: 'Ir al cine', prioridad: '0'}
+            {nombre: 'Ir al cine', prioridad: '0'}*/
         ]
 
         comun.tarea = {};
@@ -33,12 +33,27 @@ angular.module('appTareas', ['ui.router'])
             //y el numero de elementos a eliminar a partir del indice
             comun.tareas.splice(indice, 1);
         }
+        
+        /***Metodos Remotos ***/
+        comun.getAll = function () {
+            return $http.get('/tareas')
+            .success(function (data){
+                //angular.copy() : primer parametro es la fuente de informacion y el segundo: hacia donde va a ir
+                angular.copy(data, comun.tareas);
+                comun.tareas = data;
+                return comun.tareas
+            });
+        }
+        
+        
         return comun;
     })
 
 
     .controller('ctrlAlta', function ($scope, $state, comun) {
         $scope.tarea = {};
+        
+        comun.getAll();
         //$scope.tareas = [];
         $scope.tareas = comun.tareas;
 
