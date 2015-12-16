@@ -40,9 +40,32 @@ angular.module('appTareas', ['ui.router'])
             .success(function (data){
                 //angular.copy() : primer parametro es la fuente de informacion y el segundo: hacia donde va a ir
                 angular.copy(data, comun.tareas);
-                comun.tareas = data;
+                //comun.tareas = data;
                 return comun.tareas
             });
+        }
+        
+        comun.add = function(tarea) {
+            return $http.post('/tarea', tarea)
+            .success(function (tarea) {
+                comun.tareas.push(tarea);
+            })
+        }
+        
+        comun.update = function (tarea) {
+            return $http.put('/tarea/' + tarea._id, tarea)
+            .success(function(data) {
+                var indice = comun.tareas.indexOf(tarea);
+                comun.tareas[indice] = data;
+            })
+        }
+        
+        comun.delete = function (tarea) {
+            return $http.delete('/tarea/' + tarea._id)
+            .success(function() {
+                var indice = comun.tareas.indexOf(tarea);
+                comun.tareas.splice(indice, 1);
+            })
         }
         
         
@@ -60,7 +83,7 @@ angular.module('appTareas', ['ui.router'])
         $scope.prioridades = ['Baja', 'Normal', 'Alta'];
 
         $scope.agregar = function () {
-            $scope.tareas.push({
+            comun.add({
                 nombre: $scope.tarea.nombre,
                 prioridad: parseInt($scope.tarea.prioridad)
             })
@@ -78,7 +101,7 @@ angular.module('appTareas', ['ui.router'])
         }
 
         $scope.eliminar = function (tarea) {
-            comun.eliminar(tarea);
+            comun.delete(tarea);
         }
 
         $scope.procesaObjeto = function (tarea) {
@@ -92,13 +115,19 @@ angular.module('appTareas', ['ui.router'])
         $scope.tarea = comun.tarea;
         
         $scope.actualizar = function () {
-            var indice = comun.tareas.indexOf(comun.tarea);
+            /*var indice = comun.tareas.indexOf(comun.tarea);
             comun.tareas[indice] = $scope.tarea;  
+            $state.go('alta');*/
+            
+            comun.update($scope.tarea);
             $state.go('alta');
+            
         }
         
         $scope.eliminar = function () {
-            comun.eliminar($scope.tarea);
+            /*comun.eliminar($scope.tarea);
+            $state.go('alta');*/
+            comun.delete($scope.tarea);
             $state.go('alta');
         }
     })
